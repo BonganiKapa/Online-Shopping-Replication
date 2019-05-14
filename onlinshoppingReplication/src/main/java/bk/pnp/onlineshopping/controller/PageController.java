@@ -9,16 +9,45 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
 	@RequestMapping(value = {"/", "/home", "/index"})
-	public ModelAndView index(){
+	public ModelAndView Home(){
 		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting", "Welcome to Spring Web MVC");
+		mv.addObject("title", "Home");
+		mv.addObject("userClickHome", true);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/test")
-	public ModelAndView test(@RequestParam(value = "greeting", required = false) String greeting){
+	@RequestMapping(value = "/shop-by")
+	public ModelAndView shopBy(){
 		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting", greeting);
+		mv.addObject("title", "SHOP-BY");
+		mv.addObject("userClickShopBy", true);
+		return mv;
+	}
+	@RequestMapping(value = "/specials")
+	public ModelAndView specials(){
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title", "SPECIALS");
+		mv.addObject("userClickSpecials", true);
+		return mv;
+	}
+	@RequestMapping(value = "/recipes")
+	public ModelAndView recipes(){
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title", "RECIPES");
+		mv.addObject("userClickRecipes", true);
+		return mv;
+	}
+	@RequestMapping(value = "/competition")
+	public ModelAndView competition(){
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title", "COMPETITION");
+		mv.addObject("userClickCompetiontion", true);
+		return mv;
+	}
+	@RequestMapping(value = "/inStoreCatalogue")
+	public ModelAndView catalogue(){
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title", "IN-STRORE CATALOGUE");
+		mv.addObject("userClickCatalogue", true);
 		return mv;
 	}
 }
