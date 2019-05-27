@@ -68,4 +68,8 @@ product_id INT not null,
 CONSTRAINT pk_orderDeatails_id PRIMARY KEY (id)
 );
 
----------
+---------ADDRESS TABLE-------
+create table ADDRESS
+{
+
+};

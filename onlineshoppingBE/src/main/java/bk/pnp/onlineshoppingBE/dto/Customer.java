@@ -1,31 +1,61 @@
 package bk.pnp.onlineshoppingBE.dto;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+
 
 @Entity
-public class Customer {
+public class Customer implements Serializable{
 	
-	//PRIVATE FIELDS
-	@Id //ASSIGNING MY ID TO THE TABLE
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //INCREMENTING MY ID AS PER-USER
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String customer_name;
-	private String last_name;
-	private String DOB;
-	private String street_address;
-	private String post_address;
+	@NotBlank(message = "Please enter your first name:")
+	@Column(name = "customer_name")
+	private String cusName;
+	@NotBlank(message = "Please enter your last name:")
+	@Column(name = "last_name")
+	private String lastName;
+	@NotBlank(message = "Please enter your Email Address:")
 	private String email;
-	private String phone_number;
-	
-	//GETTERS & SETTERS METHOD
-	public String getPhone_number() {
-		return phone_number;
+	@NotBlank(message = "Please enter your contact details")
+	@Column(name = "phone_number")
+	private String contacts;
+	private String role;
+	@NotBlank(message = "Please enter you Password")
+	private String password;
+	private boolean accActive = true;
+	@Transient
+	private String confirmPw;
+	public int getId() {
+		return id;
 	}
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -33,40 +63,50 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPost_address() {
-		return post_address;
+	public String getContacts() {
+		return contacts;
 	}
-	public void setPost_address(String post_address) {
-		this.post_address = post_address;
+	public void setContacts(String contacts) {
+		this.contacts = contacts;
 	}
-	public String getStreet_address() {
-		return street_address;
+	public String getRole() {
+		return role;
 	}
-	public void setStreet_address(String street_address) {
-		this.street_address = street_address;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public String getDOB() {
-		return DOB;
+	public String getPassword() {
+		return password;
 	}
-	public void setDOB(String dOB) {
-		DOB = dOB;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getLast_name() {
-		return last_name;
+	public boolean isAccActive() {
+		return accActive;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setAccActive(boolean accActive) {
+		this.accActive = accActive;
 	}
-	public String getCustomer_name() {
-		return customer_name;
+	public String getConfirmPw() {
+		return confirmPw;
 	}
-	public void setCustomer_name(String customer_name) {
-		this.customer_name = customer_name;
+	public void setConfirmPw(String confirmPw) {
+		this.confirmPw = confirmPw;
 	}
-	public int getId() {
-		return id;
+	@Override
+	public String toString() {
+		return "Customer [ID = " + id + ", Customer Name = " + cusName + ", Last Name = " + lastName + ", Email = "
+				+ email + ", Contacts = " + contacts + ", Role = " + role + ", Password = " + password + ", Enable = "
+				+ accActive + "]";
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Cart cart;
+	public Cart getCart() {
+		return cart;
 	}
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+	
 }
